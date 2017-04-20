@@ -1,5 +1,6 @@
 #-*- coding: utf-8 -*-
 import tweepy
+import os
 
 class StreamListener(tweepy.StreamListener):
     def on_status(self, status):
@@ -13,10 +14,10 @@ class StreamListener(tweepy.StreamListener):
         if status_code == 420:
             return False
 
-consumer_key = "0TPMQJbwpOVVMTNnBYvNoHJhi"
-consumer_secret = "uAkjG7qvhM6xfws2XHSVWaq3RnfnZg6LIeNX5kGLzwWYlALE8i"
-access_token = "855078016086458369-6XrmYPP8XSpZaM5iLqKiWWSGUQ0uXcg"
-access_secret = "K3m1G9ULZdgxCam8qdyOR6lqpToMjq589QwJHG7mU9FEO"
+consumer_key = os.environ["CONSUMER_KEY"]
+consumer_secret = os.environ["CONSUMER_SECRET"]
+access_token = os.environ["ACCESS_TOKEN_KEY"]
+access_secret = os.environ["ACCESS_TOKEN_SECRET"]
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_secret)
 api = tweepy.API(auth)
