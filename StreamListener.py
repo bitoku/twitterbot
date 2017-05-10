@@ -11,6 +11,11 @@ class StreamListener(tweepy.StreamListener):
             api.update_status(status=tweet)
 
     def on_error(self, status_code):
+        print("Got an error code " + status_code)
         if status_code == 420:
             return False
+
+    def on_timeout(self):
+        print("Time out...")
+        return True
 

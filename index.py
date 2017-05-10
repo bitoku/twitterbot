@@ -5,3 +5,4 @@ from StreamListener import *
 myStreamListener = StreamListener
 myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener())
 myStream.userstream()
+print("a")

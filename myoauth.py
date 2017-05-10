@@ -5,7 +5,7 @@ import tweepy
 
 def get_env_variable(var_name):
     try:
-        return os.environ(var_name)
+        return os.environ[var_name]
     except KeyError:
         import io
         import configparser
@@ -16,7 +16,7 @@ def get_env_variable(var_name):
         config.seek(0, os.SEEK_SET)
         cp = configparser.ConfigParser()
         cp.read_file(config)
-        value = dict(cp.items("DATA"))[var_name]
+        value = dict(cp.items("DATA"))[var_name.lower()]
         if value.startswith("'") and value.endswith("'"):
             value = value[1:-1]
         elif value.startswith('"') and value.endswith('"'):
@@ -24,10 +24,10 @@ def get_env_variable(var_name):
         os.environ.setdefault(var_name, value)
         return value
 
-consumer_key = get_env_variable("CONSUMER_KEY")
-consumer_secret = get_env_variable("CONSUMER_SECRET")
-access_token = get_env_variable("ACCESS_TOKEN")
-access_token_secret = get_env_variable("ACCESS_TOKEN_SECRET")
+consumer_key = get_env_variable("TWITTER_CONSUMER_KEY")
+consumer_secret = get_env_variable("TWITTER_CONSUMER_SECRET")
+access_token = get_env_variable("TWITTER_ACCESS_TOKEN")
+access_token_secret = get_env_variable("TWITTER_ACCESS_TOKEN_SECRET")
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 auth.set_access_token(access_token, access_token_secret)
 api = tweepy.API(auth)
