@@ -1,6 +1,6 @@
 #-*- coding: utf-8 -*-
 import tweepy
-import os
+from myoauth import api
 
 class StreamListener(tweepy.StreamListener):
     def on_status(self, status):
@@ -14,17 +14,3 @@ class StreamListener(tweepy.StreamListener):
         if status_code == 420:
             return False
 
-for k, v in os.environ.items():
-    print(k)
-
-consumer_key = os.environ["TWITTER_CONSUMER_KEY"]
-consumer_secret = os.environ["TWITTER_CONSUMER_SECRET"]
-access_token = os.environ["TWITTER_ACCESS_TOKEN"]
-access_secret = os.environ["TWITTER_ACCESS_TOKEN_SECRET"]
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_secret)
-api = tweepy.API(auth)
-
-myStreamListener = StreamListener
-myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener())
-myStream.userstream()
