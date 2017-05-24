@@ -9,7 +9,7 @@ class StreamListener(tweepy.StreamListener):
             print("recieved \"" + status.text +"\"")
             tweet="@"+status.user.screen_name+" "+ \
                 status.user.name+"「"+status.text.split(" ", 1)[1]+"」"
-            api.update_status(status=tweet)
+            api.update_status(status=tweet, in_reply_to_status_id=status.id)
             with graph.driver.session() as session:
                 session.write_transaction(graph.create_node, status.text.split(" ", 1)[1])
 
