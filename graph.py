@@ -20,7 +20,7 @@ def create_relationship(tx, begin, end):
 
 def count_node(tx, word):
     result = list(tx.run("MATCH (n:Word)"
-                         "WHERE n.word = {word}"
+                         "WHERE n.word = '{word}'"
                          "RETURN count(n)", word=word))
     return result[0][0]
 
