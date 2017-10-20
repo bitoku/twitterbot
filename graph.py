@@ -11,13 +11,15 @@ driver = GraphDatabase.driver(graphenedb_bolt_url, auth=basic_auth(graphenedb_bo
 
 
 def create_node(tx, word):
-    tx.run("CREATE (n:Word {word:'{w}'})".format(w=word))
+    if not find_node(tx, word):
+        tx.run("CREATE (n:Word {word:'{w}'})".format(w=word))
 
 
 def create_relationship(tx, word1, word2):
-    tx.run("MATCH (a:Word),(b:Word)"
-           "WHERE a.word='{word1}' AND b.word='{word2}'"
-           "CREATE (a)-[r:RELATE]->(b);".format(word1=word1, word2=word2))
+    if not find_relationship(tx, word1, word2):
+        tx.run("MATCH (a:Word),(b:Word)"
+               "WHERE a.word='{word1}' AND b.word='{word2}'"
+               "CREATE (a)-[r:RELATE]->(b);".format(word1=word1, word2=word2))
 
 
 def shortest_path(tx, word1, word2):
