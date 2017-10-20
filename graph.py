@@ -53,3 +53,7 @@ def find_relationship(tx, word1, word2):
         return True
     else:
         return False
+
+
+def near_node(tx, word):
+    pass
